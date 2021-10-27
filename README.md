@@ -1,5 +1,5 @@
 # export
-Export data
+Selectively expose module functionality
 
 ## Usage
 ```python
