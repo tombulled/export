@@ -2,9 +2,8 @@
 Selectively expose module functionality
 
 ## Usage
+**lib.py**
 ```python
-# lib.py
-
 import export
 
 @export
@@ -17,6 +16,10 @@ def bar():
 
 ```python
 >>> from lib import *
+>>>
+>>> # Exported functionality is added to the library's `__all__`
+>>> lib.__all__
+['foo']
 >>>
 >>> # 'foo' was exported
 >>> lib.foo()
