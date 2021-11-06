@@ -1,11 +1,18 @@
 [tool.poetry]
 name = "export"
-version = "0.1.1"
-description = "Selectively expose module functionality"
+version = "0.1.2"
+description = "Expose module functionality"
 authors = ["Tom Bulled <26026015+tombulled@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/tombulled/export"
+repository = "https://github.com/tombulled/export"
+documentation = "https://github.com/tombulled/export"
+keywords = ["python", "export", "public"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+modcall = "^0.1.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -1,31 +1,34 @@
 # export
-Selectively expose module functionality
+Expose module functionality
 
 ## Usage
-**lib.py**
 ```python
+# lib.py
+
 import export
 
 @export
-def foo():
-    return 'foo'
+def foo(): pass
 
-def bar():
-    return 'bar'
+def bar(): pass
+
+@export
+class Foo: pass
+
+class Bar: pass
 ```
 
 ```python
 >>> from lib import *
 >>>
->>> # Exported functionality is added to the library's `__all__`
->>> lib.__all__
-['foo']
+>>> foo
+<function foo at 0x7f429bfe3040>
+>>> Foo
+<class 'lib.Foo'>
 >>>
->>> # 'foo' was exported
->>> lib.foo()
-'foo'
->>>
->>> # 'bar' was not exported
->>> lib.bar()
+>>> bar
 NameError: name 'bar' is not defined
+>>> Bar
+NameError: name 'Bar' is not defined
+>>>
 ```

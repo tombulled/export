@@ -1,4 +1,7 @@
-from . import utils
 from .exporter import export
 
-utils.make_callable(__name__, export)
+import modcall
+
+modcall(__name__, export)
+
+del modcall
