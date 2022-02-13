@@ -1,34 +1,37 @@
-# export
-Expose module functionality
+# visibility
 
 ## Usage
+### Allowlist
 ```python
-# lib.py
+import visibility
 
-import export
+visibility.init(default=visibility.PUBLIC)
 
-@export
-def foo(): pass
+def foo():
+    pass
 
-def bar(): pass
+@visibility.private
+def bar():
+    pass
 
-@export
-class Foo: pass
-
-class Bar: pass
+@visibility.private
+def baz():
+    pass
 ```
 
+### Denylist
 ```python
->>> from lib import *
->>>
->>> foo
-<function foo at 0x7f429bfe3040>
->>> Foo
-<class 'lib.Foo'>
->>>
->>> bar
-NameError: name 'bar' is not defined
->>> Bar
-NameError: name 'Bar' is not defined
->>>
+import visibility
+
+visibility.init(default=visibility.PRIVATE)
+
+@visibility.public
+def foo():
+    pass
+
+def bar():
+    pass
+
+def baz():
+    pass
 ```
