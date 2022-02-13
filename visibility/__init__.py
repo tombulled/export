@@ -9,14 +9,14 @@ class Visibility(enum.Enum):
 PUBLIC = Visibility.PUBLIC
 PRIVATE = Visibility.PRIVATE
 
-def init(default: Visibility = Visibility.PRIVATE) -> None:
-    return ['foo']
+# def init(default: Visibility = Visibility.PRIVATE) -> None:
+#     return ['foo']
 
 def public(func):
     _export(func)
 
-def private(func):
-    _export(func)
+# def private(func):
+#     _export(func)
 
 def _export(func):
     module: types.ModuleType = sys.modules[func.__module__]

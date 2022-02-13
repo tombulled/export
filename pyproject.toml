@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "visibility"
-version = "0.1.3"
+version = "0.1.0"
 description = "Control module exports"
 authors = ["Tom Bulled <26026015+tombulled@users.noreply.github.com>"]
 license = "MIT"
