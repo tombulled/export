@@ -1,10 +1,14 @@
 import visibility
 
-__all__ = visibility.init(default=visibility.PUBLIC)
+visibility.init(default=visibility.PUBLIC)
 
+@visibility.public
 def foo():
     pass
 
 @visibility.private
 def bar():
+    pass
+
+def baz():
     pass
