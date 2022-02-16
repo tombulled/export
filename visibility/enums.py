@@ -5,8 +5,5 @@ class NoValue(enum.Enum):
         return f'<{type(self).__name__}.{self.name}>'
 
 class Visibility(NoValue):
-    PUBLIC = True
-    PRIVATE = False
-
-    def inverse(self):
-        return type(self)(not self.value)
+    PUBLIC = enum.auto()
+    PRIVATE = enum.auto()

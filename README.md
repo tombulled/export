@@ -1,8 +1,17 @@
 # visibility
+Control module exports
+
+## About
+This library dynamically generates an `__all__` attribute for modules
 
 ## Usage
-### Allowlist
+
+### Allowlist Approach
+*Doesn't* export objects marked **private**, *does* export everything else
+
 ```python
+# lib.py
+
 import visibility
 
 visibility.init(default=visibility.PUBLIC)
@@ -19,8 +28,19 @@ def baz():
     pass
 ```
 
-### Denylist
 ```python
+>>> import lib
+>>> 
+>>> lib.__all__
+['foo', 'visibility']
+```
+
+### Denylist Approach
+*Does* export objects marked **public**, *doesn't* export everything else
+
+```python
+# lib.py
+
 import visibility
 
 visibility.init(default=visibility.PRIVATE)
@@ -34,4 +54,11 @@ def bar():
 
 def baz():
     pass
+```
+
+```python
+>>> import lib
+>>> 
+>>> lib.__all__
+['foo']
 ```

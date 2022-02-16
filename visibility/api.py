@@ -21,7 +21,10 @@ def init(*, default: enums.Visibility = enums.Visibility.PRIVATE) -> None:
                 if not key.startswith('_')
             }
 
-            return sorted(attributes - self._exports[self._default.inverse()])
+            if self._scope.default == enums.Visibility.PUBLIC:
+                return sorted(attributes - self._scope.exports[enums.Visibility.PRIVATE])
+            
+            return sorted(self._scope.exports[enums.Visibility.PUBLIC])
 
     module.__class__ = Module
 

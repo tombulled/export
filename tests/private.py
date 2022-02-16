@@ -1,12 +1,11 @@
 import visibility
 
-visibility.init(default=visibility.PUBLIC)
+visibility.init(default=visibility.PRIVATE)
 
 @visibility.public
 def foo():
     pass
 
-@visibility.private
 def bar():
     pass
 
