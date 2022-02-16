@@ -3,6 +3,7 @@ import typing
 
 from . import enums
 
+
 @dataclasses.dataclass
 class Scope:
     default: enums.Visibility = enums.Visibility.PRIVATE
