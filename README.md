@@ -1,34 +1,64 @@
-# export
-Expose module functionality
+# visibility
+Control module exports
+
+## About
+This library dynamically generates an `__all__` attribute for modules
 
 ## Usage
+
+### Allowlist Approach
+*Doesn't* export objects marked **private**, *does* export everything else
+
 ```python
 # lib.py
 
-import export
+import visibility
 
-@export
-def foo(): pass
+visibility.init(default=visibility.PUBLIC)
 
-def bar(): pass
+def foo():
+    pass
 
-@export
-class Foo: pass
+@visibility.private
+def bar():
+    pass
 
-class Bar: pass
+@visibility.private
+def baz():
+    pass
 ```
 
 ```python
->>> from lib import *
->>>
->>> foo
-<function foo at 0x7f429bfe3040>
->>> Foo
-<class 'lib.Foo'>
->>>
->>> bar
-NameError: name 'bar' is not defined
->>> Bar
-NameError: name 'Bar' is not defined
->>>
+>>> import lib
+>>> 
+>>> lib.__all__
+['foo', 'visibility']
+```
+
+### Denylist Approach
+*Does* export objects marked **public**, *doesn't* export everything else
+
+```python
+# lib.py
+
+import visibility
+
+visibility.init(default=visibility.PRIVATE)
+
+@visibility.public
+def foo():
+    pass
+
+def bar():
+    pass
+
+def baz():
+    pass
+```
+
+```python
+>>> import lib
+>>> 
+>>> lib.__all__
+['foo']
 ```

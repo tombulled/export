@@ -1,18 +1,21 @@
 [tool.poetry]
-name = "export"
-version = "0.1.2"
-description = "Expose module functionality"
+name = "visibility"
+version = "0.1.0"
+description = "Control module exports"
 authors = ["Tom Bulled <26026015+tombulled@users.noreply.github.com>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/tombulled/export"
-repository = "https://github.com/tombulled/export"
-documentation = "https://github.com/tombulled/export"
-keywords = ["python", "export", "public"]
+homepage = "https://github.com/tombulled/visibility"
+repository = "https://github.com/tombulled/visibility"
+documentation = "https://github.com/tombulled/visibility"
+keywords = ["python", "visibility", "export", "public", "private"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-modcall = "^0.1.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0.1"
+black = "^22.1.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
