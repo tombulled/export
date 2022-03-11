@@ -60,5 +60,5 @@ def baz():
 >>> import lib
 >>> 
 >>> lib.__all__
-['foo', 'export']
+['export', 'foo']
 ```
