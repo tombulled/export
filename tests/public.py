@@ -1,17 +1,17 @@
-import visibility
+import export
 
-visibility.init(default=visibility.PUBLIC)
+export.init(default=export.PUBLIC)
 
 
 def foo():
     pass
 
 
-@visibility.private
+@export.private
 def bar():
     pass
 
 
-@visibility.private
+@export.private
 def baz():
     pass

@@ -1,7 +1,7 @@
 import enum
 
 
-class Visibility(enum.Enum):
+class Access(enum.Enum):
     PUBLIC = enum.auto()
     PRIVATE = enum.auto()
 

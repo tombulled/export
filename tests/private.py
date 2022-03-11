@@ -1,9 +1,9 @@
-import visibility
+import export
 
-visibility.init(default=visibility.PRIVATE)
+export.init(default=export.PRIVATE)
 
 
-@visibility.public
+@export.public
 def foo():
     pass
 
