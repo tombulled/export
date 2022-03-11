@@ -6,7 +6,7 @@ import typing
 from . import enums, models
 
 
-def init(*, default: enums.Visibility = enums.Visibility.PRIVATE) -> None:
+def init(*, default: enums.Access = enums.Access.PRIVATE) -> None:
     module: types.ModuleType = inspect.getmodule(inspect.stack()[1][0])
 
     class Module(types.ModuleType):
@@ -18,7 +18,7 @@ def init(*, default: enums.Visibility = enums.Visibility.PRIVATE) -> None:
                 key for key in dir(self) if not key.startswith("_")
             }
 
-            if self._scope.default == enums.Visibility.PUBLIC:
+            if self._scope.default == enums.Access.PUBLIC:
                 return sorted(attributes - self._scope.private)
 
             return sorted(self._scope.public)
@@ -27,20 +27,18 @@ def init(*, default: enums.Visibility = enums.Visibility.PRIVATE) -> None:
 
 
 def public(obj: typing.T) -> typing.T:
-    return _export(obj, visibility=enums.Visibility.PUBLIC)
+    return _export(obj, access=enums.Access.PUBLIC)
 
 
 def private(obj: typing.T) -> typing.T:
-    return _export(obj, visibility=enums.Visibility.PRIVATE)
+    return _export(obj, access=enums.Access.PRIVATE)
 
 
-def _export(obj: typing.T, visibility: enums.Visibility) -> typing.T:
+def _export(obj: typing.T, access: enums.Access) -> typing.T:
     module: types.ModuleType = sys.modules[obj.__module__]
 
     collection: typing.Set[str] = (
-        module._scope.public
-        if visibility is enums.Visibility.PUBLIC
-        else module._scope.private
+        module._scope.public if access is enums.Access.PUBLIC else module._scope.private
     )
 
     collection.add(obj.__name__)
