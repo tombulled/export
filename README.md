@@ -4,6 +4,11 @@ Control module exports
 ## About
 This library dynamically generates an `__all__` attribute for modules
 
+## Install
+```console
+pip install export
+```
+
 ## Usage
 
 ### Private by Default
