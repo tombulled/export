@@ -7,7 +7,7 @@ from . import enums, models
 
 
 def init(*, default: enums.Access = enums.Access.PRIVATE) -> None:
-    module: types.ModuleType = inspect.getmodule(inspect.stack()[1][0])
+    module: types.ModuleType | None = inspect.getmodule(inspect.stack()[1][0])
 
     class Module(types.ModuleType):
         _scope: models.Scope = models.Scope(default=default)
