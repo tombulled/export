@@ -5,10 +5,13 @@ import typing
 
 from . import enums, models
 
+
 class NamedObject(typing.Protocol):
     __name__: str
 
-T=typing.TypeVar("T", bound=NamedObject)
+
+T = typing.TypeVar("T", bound=NamedObject)
+
 
 def init(*, default: enums.Access = enums.Access.PRIVATE) -> None:
     module: types.ModuleType | None = inspect.getmodule(inspect.stack()[1][0])
