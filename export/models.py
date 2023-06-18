@@ -1,11 +1,13 @@
-import dataclasses
-import typing
+from dataclasses import dataclass, field
+from typing import Sequence, Set
 
-from . import enums
+from .enums import Access
+
+__all__: Sequence[str] = ("Scope",)
 
 
-@dataclasses.dataclass
+@dataclass
 class Scope:
-    default: enums.Access = enums.Access.PRIVATE
-    public: typing.Set[str] = dataclasses.field(default_factory=set)
-    private: typing.Set[str] = dataclasses.field(default_factory=set)
+    default: Access = Access.PRIVATE
+    public: Set[str] = field(default_factory=set)
+    private: Set[str] = field(default_factory=set)

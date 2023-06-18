@@ -1,5 +1,5 @@
-from . import enums
 from .api import init, private, public
+from .enums import Access
 
-PUBLIC: enums.Access = enums.Access.PUBLIC
-PRIVATE: enums.Access = enums.Access.PRIVATE
+PUBLIC: Access = Access.PUBLIC
+PRIVATE: Access = Access.PRIVATE
