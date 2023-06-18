@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "export"
-version = "0.2.0"
+version = "0.2.1"
 description = "Control module exports"
 authors = ["Tom Bulled <26026015+tombulled@users.noreply.github.com>"]
 license = "MIT"
