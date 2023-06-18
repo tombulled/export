@@ -5,9 +5,13 @@ import typing
 
 from . import enums, models
 
+class NamedObject(typing.Protocol):
+    __name__: str
+
+T=typing.TypeVar("T", bound=NamedObject)
 
 def init(*, default: enums.Access = enums.Access.PRIVATE) -> None:
-    module: types.ModuleType = inspect.getmodule(inspect.stack()[1][0])
+    module: types.ModuleType | None = inspect.getmodule(inspect.stack()[1][0])
 
     class Module(types.ModuleType):
         _scope: models.Scope = models.Scope(default=default)
@@ -26,15 +30,15 @@ def init(*, default: enums.Access = enums.Access.PRIVATE) -> None:
     module.__class__ = Module
 
 
-def public(obj: typing.T) -> typing.T:
+def public(obj: T) -> T:
     return _export(obj, access=enums.Access.PUBLIC)
 
 
-def private(obj: typing.T) -> typing.T:
+def private(obj: T) -> T:
     return _export(obj, access=enums.Access.PRIVATE)
 
 
-def _export(obj: typing.T, access: enums.Access) -> typing.T:
+def _export(obj: T, access: enums.Access) -> T:
     module: types.ModuleType = sys.modules[obj.__module__]
 
     collection: typing.Set[str] = (
