@@ -1,28 +1,29 @@
 import inspect
 import sys
-import types
-import typing
+from types import ModuleType
+from typing import List, Mapping, Optional, Sequence, Set, TypeVar
 
-from . import enums, models
+from .enums import Access
+from .models import Scope
+from .protocols import Named
 
-class NamedObject(typing.Protocol):
-    __name__: str
+__all__: Sequence[str] = ("init", "public", "private")
 
-T=typing.TypeVar("T", bound=NamedObject)
 
-def init(*, default: enums.Access = enums.Access.PRIVATE) -> None:
-    module: types.ModuleType | None = inspect.getmodule(inspect.stack()[1][0])
+T = TypeVar("T", bound=Named)
 
-    class Module(types.ModuleType):
-        _scope: models.Scope = models.Scope(default=default)
+
+def init(*, default: Access = Access.PRIVATE) -> None:
+    module: Optional[ModuleType] = inspect.getmodule(inspect.stack()[1][0])
+
+    class Module(ModuleType):
+        _scope: Scope = Scope(default=default)
 
         @property
-        def __all__(self) -> typing.List[str]:
-            attributes: typing.Set[str] = {
-                key for key in dir(self) if not key.startswith("_")
-            }
+        def __all__(self) -> List[str]:
+            attributes: Set[str] = {key for key in dir(self) if not key.startswith("_")}
 
-            if self._scope.default == enums.Access.PUBLIC:
+            if self._scope.default is Access.PUBLIC:
                 return sorted(attributes - self._scope.private)
 
             return sorted(self._scope.public)
@@ -30,20 +31,23 @@ def init(*, default: enums.Access = enums.Access.PRIVATE) -> None:
     module.__class__ = Module
 
 
-def public(obj: T) -> T:
-    return _export(obj, access=enums.Access.PUBLIC)
+def public(obj: T, /) -> T:
+    return _export(obj, access=Access.PUBLIC)
 
 
-def private(obj: T) -> T:
-    return _export(obj, access=enums.Access.PRIVATE)
+def private(obj: T, /) -> T:
+    return _export(obj, access=Access.PRIVATE)
 
 
-def _export(obj: T, access: enums.Access) -> T:
-    module: types.ModuleType = sys.modules[obj.__module__]
+def _export(obj: T, /, access: Access) -> T:
+    module: ModuleType = sys.modules[obj.__module__]
 
-    collection: typing.Set[str] = (
-        module._scope.public if access is enums.Access.PUBLIC else module._scope.private
-    )
+    collections: Mapping[Access, Set[str]] = {
+        Access.PUBLIC: module._scope.public,
+        Access.PRIVATE: module._scope.private,
+    }
+
+    collection: Set[str] = collections[access]
 
     collection.add(obj.__name__)
 
